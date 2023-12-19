@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose"
 
 export const recordingSchema = new Schema({
-  CallID: { type: mongoose.Schema.Types.ObjectId, ref: 'Call' },
+  CallID: { type: Schema.Types.ObjectId, ref: "Call" },
   FilePath: String,
   Transcription: String,
   EmotionAnalytics: [
@@ -18,7 +18,8 @@ export const recordingSchema = new Schema({
       },
     ],
   ],
-});
+})
 
-const RecordingModel = model('Recording', recordingSchema);
+const RecordingModel = model("Recording", recordingSchema)
 
+export default RecordingModel
