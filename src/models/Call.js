@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose"
+const { Schema, model } = require("mongoose")
 
 const callSchema = new Schema({
   CallerID: { type: Schema.Types.ObjectId, ref: "User" },
@@ -10,4 +10,4 @@ const callSchema = new Schema({
 
 const CallModel = model("Call", callSchema)
 
-export default CallModel
+module.exports = callSchema

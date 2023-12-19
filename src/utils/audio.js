@@ -1,6 +1,6 @@
-import ffmpeg from "fluent-ffmpeg"
+const ffmpeg = require("ffmpeg")
 
-export async function convertMp3ToWav(mp3Data) {
+async function convertMp3ToWav(mp3Data) {
   return new Promise((resolve, reject) => {
     const converter = ffmpeg()
 
@@ -19,3 +19,5 @@ export async function convertMp3ToWav(mp3Data) {
     converter.run()
   })
 }
+
+module.exports = { convertMp3ToWav }

@@ -1,6 +1,6 @@
-import WhisperModel from "../models/Whisper.js"
+const WhisperModel = require("../models/Whisper")
 
-export async function createWhisper(req, res) {
+async function createWhisper(req, res) {
   try {
     const whisper = new WhisperModel(req.body)
     const savedWhisper = await whisper.save()
@@ -9,3 +9,5 @@ export async function createWhisper(req, res) {
     res.status(500).json({ error: error.message })
   }
 }
+
+module.exports = { createWhisper }

@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose"
+const { Schema, model } = require("mongoose")
 
 const analyticsSchema = new Schema({
   CallID: { type: Schema.Types.ObjectId, ref: "Call" },
@@ -10,4 +10,4 @@ const analyticsSchema = new Schema({
 
 const AnalyticsModel = model("Analytics", analyticsSchema)
 
-export default AnalyticsModel
+module.exports = AnalyticsModel

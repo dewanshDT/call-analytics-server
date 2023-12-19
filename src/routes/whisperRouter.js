@@ -1,7 +1,8 @@
-import { Router } from "express"
+const { Router } = require("express")
+const { createWhisper } = require("../controllers/whisperController.js")
 
 const whisperRouter = Router()
 
-whisperRouter.post("/whispers", whisperRouter)
+whisperRouter.post("/whispers", createWhisper)
 
-export default whisperRouter
+module.exports = whisperRouter

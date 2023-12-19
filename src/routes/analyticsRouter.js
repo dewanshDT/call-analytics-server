@@ -1,8 +1,8 @@
-import { Router } from "express"
-import { createAnalytics } from "../controllers/analyticsController.js"
+const { Router } = require("express")
+const { createAnalytics } = require("../controllers/analyticsController.js")
 
 const analyticsRouter = Router()
 
 analyticsRouter.post("/analytics", createAnalytics)
 
-export default analyticsRouter
+module.exports = analyticsRouter

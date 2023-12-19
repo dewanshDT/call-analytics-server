@@ -1,6 +1,6 @@
-import AnalyticsModel from "../models/Analytics.js"
+const AnalyticsModel = require("../models/Analytics")
 
-export async function createAnalytics(req, res) {
+async function createAnalytics(req, res) {
   try {
     const analytics = new AnalyticsModel(req.body)
     const savedAnalytics = await analytics.save()
@@ -9,3 +9,5 @@ export async function createAnalytics(req, res) {
     res.status(500).json({ error: error.message })
   }
 }
+
+module.exports = { createAnalytics }

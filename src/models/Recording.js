@@ -1,6 +1,6 @@
-import { Schema, model } from "mongoose"
+const { Schema, model } = require("mongoose")
 
-export const recordingSchema = new Schema({
+const recordingSchema = new Schema({
   CallID: { type: Schema.Types.ObjectId, ref: "Call" },
   FilePath: String,
   Transcription: String,
@@ -22,4 +22,4 @@ export const recordingSchema = new Schema({
 
 const RecordingModel = model("Recording", recordingSchema)
 
-export default RecordingModel
+module.exports = RecordingModel

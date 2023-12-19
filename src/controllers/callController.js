@@ -1,6 +1,6 @@
-import CallModel from "../models/Call.js"
+const CallModel = require("../models/Call.js")
 
-export async function createCall(req, res) {
+async function createCall(req, res) {
   try {
     const call = new CallModel(req.body)
     const savedCall = await call.save()
@@ -9,3 +9,5 @@ export async function createCall(req, res) {
     res.status(500).json({ error: error.message })
   }
 }
+
+module.exports = { createCall }

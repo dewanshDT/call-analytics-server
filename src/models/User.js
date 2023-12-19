@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose"
+const { Schema, model } = require("mongoose")
 
 const userSchema = new Schema({
   UserName: String,
@@ -8,4 +8,4 @@ const userSchema = new Schema({
 
 const UserModel = model("User", userSchema)
 
-export default UserModel
+module.exports = userSchema

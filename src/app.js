@@ -1,11 +1,13 @@
-import express, { json, response, urlencoded } from "express"
-import mongoose from "mongoose"
-import { config } from "dotenv"
-import userRouter from "./routes/userRouter.js"
-import callRouter from "./routes/callRouter.js"
-import recordingRouter from "./routes/recordingRouter.js"
-import analyticsRouter from "./routes/analyticsRouter.js"
-import whisperRouter from "./routes/whisperRouter.js"
+const express = require("express")
+const { json, urlencoded } = require("express")
+const path = require("path")
+const mongoose = require("mongoose")
+const { config } = require("dotenv")
+const userRouter = require("./routes/userRouter.js")
+const callRouter = require("./routes/callRouter.js")
+const recordingRouter = require("./routes/recordingRouter.js")
+const analyticsRouter = require("./routes/analyticsRouter.js")
+const whisperRouter = require("./routes/whisperRouter.js")
 
 const app = express()
 const PORT = 3000
@@ -17,11 +19,10 @@ mongoose
   .then(() => console.log("connected to mongoDB"))
   .catch((error) => console.log(error))
 
-// app.use(bodyParser.json())
-// app.use(bodyParser.urlencoded({ extended: true }))
-
 app.use(json())
 app.use(urlencoded({ extended: false }))
+
+app.use(express.static("public"))
 
 app.get("/", (req, res) => {
   console.log("called")
