@@ -1,4 +1,4 @@
-const UserModel = require("../models/Whisper")
+const UserModel = require("../models/User")
 
 async function createUser(req, res) {
   try {

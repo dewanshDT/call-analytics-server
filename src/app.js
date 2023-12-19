@@ -1,6 +1,7 @@
 const express = require("express")
 const { json, urlencoded } = require("express")
 const path = require("path")
+const cors = require("cors")
 const mongoose = require("mongoose")
 const { config } = require("dotenv")
 const userRouter = require("./routes/userRouter.js")
@@ -15,9 +16,11 @@ const PORT = 3000
 config()
 
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.MONGO_URI, {})
   .then(() => console.log("connected to mongoDB"))
   .catch((error) => console.log(error))
+
+app.use(cors())
 
 app.use(json())
 app.use(urlencoded({ extended: false }))
