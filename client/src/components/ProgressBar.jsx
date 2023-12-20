@@ -18,7 +18,7 @@ const ProgressBar = ({ percentage, vertical, ...props }) => {
         animate={
           vertical ? { scaleY: percentage / 100 } : { scaleX: percentage / 100 }
         }
-        transition={{ type: "spring", damping: 4, stiffness: 10 }}
+        transition={{ type: "spring", damping: 3, stiffness: 10 }}
         className={clsx(
           "w-full h-full bg-slate-700",
           vertical ? "origin-bottom" : "origin-left"

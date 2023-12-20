@@ -6,6 +6,7 @@ import { getEmotionEmoji } from "../utils"
 import useAudioPlayer from "../hooks/useAudioPlayer"
 import Loading from "../components/Loading"
 import clsx from "clsx"
+import { motion } from "framer-motion"
 
 const Call = () => {
   const { id } = useParams()
@@ -102,12 +103,30 @@ const Call = () => {
                 key={item.label + index}
                 className="flex flex-col items-center gap-1 h-44"
               >
-                <ProgressBar vertical percentage={item.score * 100} />
+                {/* <ProgressBar vertical percentage={item.score * 100} />
                 <div className="uppercase text-xs font-medium flex items-center gap-1">
                   <span className="text-lg tracking-widest">
                     {getEmotionEmoji(item.label)}{" "}
                   </span>
                   <span>{item.label}</span>
+                </div> */}
+                <div className="font-bold text-lg uppercase">{item.label}</div>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{
+                    type: "spring",
+                    damping: 1,
+                    stiffness: 10,
+                    duration: 0.5,
+                  }}
+                  className="text-6xl my-auto"
+                >
+                  {getEmotionEmoji(item.label)}
+                </motion.div>
+                <div className="font-bold text-3xl">
+                  <span>{parseInt(item.score * 100)}</span>
+                  <span className="text-lg font-bold mb-1">%</span>
                 </div>
               </div>
             ))}

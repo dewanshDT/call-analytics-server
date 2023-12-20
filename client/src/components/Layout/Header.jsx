@@ -26,7 +26,10 @@ const Header = () => {
         </h1>
       </div>
       <div className="">
-        <Link to="https://github.com/dewanshDT/IssueBoard" target="_blank">
+        <Link
+          to="https://github.com/dewanshDT/call-analytics-server"
+          target="_blank"
+        >
           <div className="hover:bg-slate-200 p-1.5 text-base rounded-md">
             <LuGithub />
           </div>
