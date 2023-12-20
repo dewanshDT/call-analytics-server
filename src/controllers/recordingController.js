@@ -1,5 +1,6 @@
 const RecordingModel = require("../models/Recording.js")
 const fs = require("fs")
+const path = require("path")
 const {
   bertModelAPI,
   emotionAPICall,
@@ -73,7 +74,53 @@ async function getRecordings(req, res) {
   }
 }
 
+async function getRecordingById(req, res) {
+  try {
+    const recordingId = req.params.id // Assuming the ID is passed as a route parameter
+
+    // Find the recording by ID in the database
+    const recording = await RecordingModel.findById(recordingId)
+
+    if (!recording) {
+      return res.status(404).json({ error: "Recording not found" })
+    }
+
+    // Return the recording details
+    return res.json(recording)
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ error: "Internal server error" })
+  }
+}
+
+const deleteRecordingById = async (req, res) => {
+  const recordingId = req.params.id
+
+  try {
+    // Find the recording by ID in the database
+    const recording = await RecordingModel.findById(recordingId)
+
+    if (!recording) {
+      return res.status(404).json({ error: "Recording not found" })
+    }
+
+    // Delete the associated file from the folder
+    const filePath = path.join(__dirname, "../../public", recording.FilePath)
+    if (filePath) fs.unlinkSync(filePath)
+
+    // Delete the recording from the database
+    await recording.deleteOne()
+
+    res.json({ message: "Recording deleted successfully" })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: "Internal server error" })
+  }
+}
+
 module.exports = {
   createRecording,
   getRecordings,
+  getRecordingById,
+  deleteRecordingById,
 }

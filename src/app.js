@@ -28,7 +28,6 @@ app.use(urlencoded({ extended: false }))
 app.use(express.static("public"))
 
 app.get("/", (req, res) => {
-  console.log("called")
   return res.json({ message: "welcome to analytics server" })
 })
 

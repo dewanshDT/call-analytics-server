@@ -6,6 +6,8 @@ const multer = require("multer")
 const {
   createRecording,
   getRecordings,
+  getRecordingById,
+  deleteRecordingById,
 } = require("../controllers/recordingController.js")
 
 const recordingStorage = multer.diskStorage({
@@ -27,5 +29,9 @@ const recordingRouter = Router()
 recordingRouter.post("/recordings", upload.single("audioData"), createRecording)
 
 recordingRouter.get("/recordings", getRecordings)
+
+recordingRouter.get("/recordings/:id", getRecordingById)
+
+recordingRouter.delete("/recordings/:id", deleteRecordingById)
 
 module.exports = recordingRouter

@@ -1,4 +1,5 @@
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import { useNavigate } from "react-router-dom"
 
 export const BASE_API_URL = "http://localhost:3000"
 
@@ -9,6 +10,30 @@ export const useGetCalls = () => {
     queryKey: queryKey,
     queryFn: () =>
       fetch(`${BASE_API_URL}/api/recordings`).then((res) => res.json()),
+  })
+}
+
+export const useGetCallById = (id) => {
+  return useQuery({
+    queryKey: [`call-${id}`],
+    queryFn: () =>
+      fetch(`${BASE_API_URL}/api/recordings/${id}`).then((res) => res.json()),
+  })
+}
+
+export const useDeleteCallById = (id) => {
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
+  return useMutation({
+    mutationKey: [`delete-call-${id}`],
+    mutationFn: () =>
+      fetch(`${BASE_API_URL}/api/recordings/${id}`, { method: "DELETE" })
+        .then((res) => res.json())
+        .catch((e) => console.log(e)),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["calls-all"] })
+      navigate("/calls/")
+    },
   })
 }
 

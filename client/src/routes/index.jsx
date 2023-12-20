@@ -1,7 +1,8 @@
-import { createBrowserRouter } from "react-router-dom"
+import { createBrowserRouter, Navigate } from "react-router-dom"
 import Layout from "../components/Layout"
-import Home from "./Home"
+import Home from "./Calls"
 import Call from "./Call"
+import Calls from "./Calls"
 
 const router = createBrowserRouter(
   [
@@ -9,7 +10,8 @@ const router = createBrowserRouter(
       path: "/",
       element: <Layout />,
       children: [
-        { index: true, element: <Home /> },
+        { index: true, element: <Navigate to="calls" /> },
+        { path: "calls", element: <Calls /> },
         {
           path: "calls/:id",
           element: <Call />,
