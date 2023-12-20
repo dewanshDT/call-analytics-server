@@ -1,9 +1,19 @@
 import React, { useRef, useState } from "react"
 import { BASE_API_URL } from "../api"
 import { LuUpload } from "react-icons/lu"
+import { useAppContext } from "../context/appContext"
+
+import { useQueryClient } from "@tanstack/react-query"
+
+import { useNavigate } from "react-router-dom"
 
 const FileUpload = () => {
   const fileInputRef = useRef(null)
+
+  const queryClient = useQueryClient()
+
+  const { setLoading } = useAppContext()
+  const navigate = useNavigate()
 
   const handleButtonClick = () => {
     fileInputRef.current.click()
@@ -20,6 +30,8 @@ const FileUpload = () => {
     const formData = new FormData()
     formData.append("audioData", selectedFile)
 
+    setLoading(true)
+
     try {
       const response = await fetch(`${BASE_API_URL}/api/recordings`, {
         method: "POST",
@@ -29,6 +41,7 @@ const FileUpload = () => {
       if (response.ok) {
         const result = await response.json()
         console.log("Recording uploaded successfully:", result)
+        navigate(`/calls/${result._id}`)
       } else {
         const error = await response.json()
         console.error("Error uploading recording:", error)
@@ -36,6 +49,9 @@ const FileUpload = () => {
     } catch (error) {
       console.error("Error during fetch operation:", error)
     }
+
+    queryClient.invalidateQueries({ queryKey: ["calls-all"] })
+    setLoading(false)
   }
 
   return (

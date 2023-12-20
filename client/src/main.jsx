@@ -6,15 +6,18 @@ import { RouterProvider } from "react-router-dom"
 
 import "./index.css"
 import router from "./routes"
+import { AppProvider } from "./context/appContext"
 
 const queryClient = new QueryClient({
-  defaultOptions: { queries: { refetchOnWindowFocus: false } },
+  defaultOptions: { queries: { refetchOnWindowFocus: true } },
 })
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <AppProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </AppProvider>
   </React.StrictMode>
 )

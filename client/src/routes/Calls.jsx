@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom"
 import { useGetCalls } from "../api"
+import Loading from "../components/Loading"
 
 const Calls = () => {
-  const { data } = useGetCalls()
+  const { data, isLoading } = useGetCalls()
+
+  if (isLoading) return <Loading />
+
   return (
     <div className="w-full h-full overflow-y-auto flex flex-col items-center">
       <ul className="flex flex-col  w-full">

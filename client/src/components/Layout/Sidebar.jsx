@@ -3,11 +3,14 @@ import { Link, useLocation, useParams, useSearchParams } from "react-router-dom"
 import { useDeleteCallById, useGetCalls } from "../../api"
 import { twMerge } from "tailwind-merge"
 import FileUpload from "../FileUpload"
+import Loading from "../Loading"
 
 const SideBar = () => {
-  const { data } = useGetCalls()
+  const { data, isLoading } = useGetCalls()
   const params = useParams()
   const { mutate } = useDeleteCallById(params.id)
+
+  if (isLoading) return <Loading />
 
   return (
     <div className="w-64 bg-slate-950 text-neutral-200 h-full py-2 px-3 hidden lg:flex flex-col gap-4">

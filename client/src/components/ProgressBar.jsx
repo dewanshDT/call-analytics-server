@@ -1,5 +1,6 @@
-import clsx from "clsx"
 import React from "react"
+import { motion } from "framer-motion"
+import clsx from "clsx"
 import { twMerge } from "tailwind-merge"
 
 const ProgressBar = ({ percentage, vertical, ...props }) => {
@@ -12,13 +13,17 @@ const ProgressBar = ({ percentage, vertical, ...props }) => {
         props.className
       )}
     >
-      <div
+      <motion.div
+        initial={vertical ? { scaleY: 0 } : { scaleX: 0 }}
+        animate={
+          vertical ? { scaleY: percentage / 100 } : { scaleX: percentage / 100 }
+        }
+        transition={{ type: "spring", damping: 4, stiffness: 10 }}
         className={clsx(
           "w-full h-full bg-slate-700",
           vertical ? "origin-bottom" : "origin-left"
         )}
-        style={{ transform: `scale${vertical ? "Y" : "X"}(${percentage}%)` }}
-      ></div>
+      ></motion.div>
     </div>
   )
 }

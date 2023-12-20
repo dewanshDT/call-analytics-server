@@ -5,7 +5,20 @@ const {
   bertModelAPI,
   emotionAPICall,
   huggingWhisperLargeV3,
+  chunkyHuggingWhisperLargeV3,
 } = require("../utils/whisper.js")
+
+async function chunkyRecording(req, res) {
+  const audioData = req.file
+
+  if (audioData) {
+    const whisperResult = await chunkyHuggingWhisperLargeV3(
+      fs.readFileSync(audioData.path)
+    )
+
+    console.log(whisperResult)
+  }
+}
 
 async function createRecording(req, res) {
   console.log("createRecording() called /api/recordings")
@@ -123,4 +136,5 @@ module.exports = {
   getRecordings,
   getRecordingById,
   deleteRecordingById,
+  chunkyRecording,
 }
